@@ -37,7 +37,7 @@ let operator;
 let buffer;
 
 function enterNumber(button) {
-    if (buffer) {
+    if (display.textContent == buffer) {
         display.textContent = '';
     }
     display.textContent += button.textContent;
