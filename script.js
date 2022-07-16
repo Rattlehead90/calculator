@@ -37,13 +37,16 @@ let operator;
 let buffer;
 
 function enterNumber(button) {
+    if (buffer) {
+        display.textContent = '';
+    }
     display.textContent += button.textContent;
 };
 
 function clear() {
     display.textContent = '';
-    operator = '';
-    buffer = 0;
+    operator = null;
+    buffer = null;
 }
 
 numpad.forEach((button) => {
@@ -57,9 +60,11 @@ numpad.forEach((button) => {
 
     if (button.classList.contains('operator')) {
         button.addEventListener('click', () => {
+            if (operator) {
+                display.textContent = operate(operator, buffer, Number(display.textContent));
+            }
             operator = button.id;
             buffer = +display.textContent;
-            display.textContent = '';
         });
     }
 
