@@ -70,5 +70,6 @@ numpad.forEach((button) => {
 
     if (button.id === 'equals') button.addEventListener('click', () => {
         display.textContent = operate(operator, buffer, Number(display.textContent));
+        operator = null;
     });
 });
