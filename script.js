@@ -49,6 +49,14 @@ function clear() {
     buffer = null;
 }
 
+function operateOnBuffer(button) {
+    if (operator) {
+        display.textContent = operate(operator, buffer, Number(display.textContent));
+    }
+    operator = button.id;
+    buffer = +display.textContent;
+}
+
 numpad.forEach((button) => {
     if (button.classList.contains('number')) {
         button.addEventListener('click', () => {
@@ -60,11 +68,7 @@ numpad.forEach((button) => {
 
     if (button.classList.contains('operator')) {
         button.addEventListener('click', () => {
-            if (operator) {
-                display.textContent = operate(operator, buffer, Number(display.textContent));
-            }
-            operator = button.id;
-            buffer = +display.textContent;
+            operateOnBuffer(button);
         });
     }
 
