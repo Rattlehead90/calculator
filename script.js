@@ -33,6 +33,8 @@ function operate(operator, a, b) {
 //Calculator interactivity module
 const numpad = document.querySelectorAll('button');
 const display = document.querySelector('.display');
+let operator;
+let buffer;
 
 function enterNumber(button) {
     display.textContent += button.textContent;
@@ -40,6 +42,8 @@ function enterNumber(button) {
 
 function clear() {
     display.textContent = '';
+    operator = '';
+    buffer = 0;
 }
 
 numpad.forEach((button) => {
@@ -50,4 +54,16 @@ numpad.forEach((button) => {
     }
 
     if (button.id === 'clear') button.addEventListener('click', clear);
+
+    if (button.classList.contains('operator')) {
+        button.addEventListener('click', () => {
+            operator = button.id;
+            buffer = +display.textContent;
+            display.textContent = '';
+        });
+    }
+
+    if (button.id === 'equals') button.addEventListener('click', () => {
+        display.textContent = operate(operator, buffer, Number(display.textContent));
+    });
 });
