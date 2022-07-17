@@ -59,7 +59,7 @@ function clear() {
     buffer = null;
 }
 
-function operateOnBuffer(key) { //there's a problem when you try to enter new number after equals
+function operateOnBuffer(key) { 
     if (operator) {
         display.textContent = operate(operator, buffer, Number(display.textContent));
         overflow();
