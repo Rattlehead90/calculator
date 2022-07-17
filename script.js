@@ -43,8 +43,14 @@ function enterNumber(button) {
     display.textContent += button.textContent;
 };
 
-function round() {
-    display.textContent = (+display.textContent).toFixed(11);
+function overflow() {
+    if (display.textContent.length > 11) {
+        if (+display.textContent % 1 !== 0) {
+            display.textContent = (+display.textContent).toFixed(11);
+        } else {
+            display.textContent = (+display.textContent).toExponential(6);
+        }
+    }
 }
 
 function clear() {
@@ -56,21 +62,17 @@ function clear() {
 function operateOnBuffer(key) { //there's a problem when you try to enter new number after equals
     if (operator) {
         display.textContent = operate(operator, buffer, Number(display.textContent));
-        if (display.textContent.length > 11) {
-            round();
-        }
+        overflow();
         }
     operator = key;
-    buffer = +display.textContent;
+    buffer = +display.textContent;  
 
 }
 
 function equals() {
     display.textContent = operate(operator, buffer, Number(display.textContent));
     operator = null;
-    if (display.textContent.length > 11) {
-        round();
-    }
+    overflow();
 }
 
 //Numpad functionality
