@@ -35,13 +35,17 @@ const numpad = document.querySelectorAll('button');
 const display = document.querySelector('.display');
 let operator;
 let buffer;
-
+//FUCK IT DOESN'T LET YOU START THE SECOND NUMBER WITH THE SAME DIGIT
 function enterNumber(button) {
     if (display.textContent == buffer) {
         display.textContent = '';
     }
     display.textContent += button.textContent;
 };
+
+function round() {
+    display.textContent = (+display.textContent).toFixed(11);
+}
 
 function clear() {
     display.textContent = '';
@@ -52,14 +56,21 @@ function clear() {
 function operateOnBuffer(key) { //there's a problem when you try to enter new number after equals
     if (operator) {
         display.textContent = operate(operator, buffer, Number(display.textContent));
+        if (display.textContent.length > 11) {
+            round();
+        }
         }
     operator = key;
     buffer = +display.textContent;
+
 }
 
 function equals() {
     display.textContent = operate(operator, buffer, Number(display.textContent));
     operator = null;
+    if (display.textContent.length > 11) {
+        round();
+    }
 }
 
 //Numpad functionality
@@ -94,7 +105,7 @@ function keyboardInput(e) {
     if (e.key === 'Enter') {
         equals();
     }
-//Operators from keyboard
+    //Operators from keyboard
     if (e.key === '+') {
         operateOnBuffer('add');
     }
