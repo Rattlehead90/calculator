@@ -36,11 +36,11 @@ const display = document.querySelector('.display');
 let operator;
 let buffer;
 
-function enterNumber(button) {
+function enterNumber(key) {
     if (display.textContent == buffer && operator) {
         display.textContent = '';
     }
-    display.textContent += button.textContent;
+    display.textContent += key;
 };
 
 function overflow() {
@@ -79,7 +79,7 @@ function equals() {
 numpad.forEach((button) => {
     if (button.classList.contains('number')) {
         button.addEventListener('click', () => {
-            enterNumber(button);
+            enterNumber(button.textContent);
         })
     }
 
@@ -98,10 +98,7 @@ numpad.forEach((button) => {
 
 function keyboardInput(e) {
     if (isFinite(e.key)) {
-        if (display.textContent == buffer) {
-            display.textContent = '';
-        }
-        display.textContent += e.key;
+        enterNumber(e.key);
     }
     
     if (e.key === 'Enter') {
