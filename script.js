@@ -35,9 +35,9 @@ const numpad = document.querySelectorAll('button');
 const display = document.querySelector('.display');
 let operator;
 let buffer;
-//FUCK IT DOESN'T LET YOU START THE SECOND NUMBER WITH THE SAME DIGIT
+
 function enterNumber(button) {
-    if (display.textContent == buffer) {
+    if (display.textContent == buffer && operator) {
         display.textContent = '';
     }
     display.textContent += button.textContent;
